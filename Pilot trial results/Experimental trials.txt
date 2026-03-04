@@ -1,0 +1,30 @@
+output 1: 
+prompt:
+        f"You are a resident deterioration classification model. "
+        f"Classify each note below as '1' for deterioration or '0' for all else. "
+        f"Answer only with a single 0 or 1 per line, in the same order as the notes.\n\n"
+        f"{combined_text}"
+texts = df["note_text"].astype(str).tolist()
+=======================================================================================================
+output 2:
+sampe prompt as output 1
+texts = [f"NOTE TEXT BEGIN:\n{t.strip()}\nNOTE TEXT END" for t in df["note_text"].astype(str).tolist()]
+=======================================================================================================
+output 3:
+prompt:
+        f"You are a resident deterioration classification model. "
+        f"Classify each note below as '1' for deterioration or '0' for all else. "
+        f"Answer only with a single 0 or 1 per line, in the same order as the notes.\n\n"
+        f"Each note requires only one classification and begins with 'NOTE TEXT BEGIN:' and ends with 'NOTE TEXT END'"
+        f"{combined_text}"
+same texts as output 2
+=======================================================================================================
+output 4:
+        f"You are a resident deterioration classification model. "
+        f"Classify each note below as '1' for deterioration or '0' for all else. "
+        f"Answer only with a single 0 or 1 per line, in the same order as the notes.\n\n"
+        f"Each note requires only one classification and begins with 'NOTE TEXT BEGIN:' and ends with 'NOTE TEXT END'"
+        f"Expect each batch to contain 16 notes to be classified, so the output should be 16 classifications."
+        f"{combined_text}"
+same texts as output 2
+=======================================================================================================

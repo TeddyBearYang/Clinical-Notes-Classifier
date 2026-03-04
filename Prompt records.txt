@@ -1,0 +1,63 @@
+------------------------------------- prompt 1 --------------------------------------------
+prompt:
+        f"You are an inappropriate hospitalisation classification model. "
+        f"Classify each note below as '1' for require hospitalisation or '0' for not require hospitalisation. "
+        f"Answer only with a single 0 or 1 per line, in the same order as the notes.\n\n"
+        f"Each note requires only one classification and begins with 'NOTE TEXT BEGIN:' and ends with 'NOTE TEXT END'"
+        f"{combined_text}"
+------------------------------------- prompt 2 --------------------------------------------
+prompt = (
+    "You are a clinical triage classification model.\n"
+    "Your task is to determine whether each clinical note indicates a need for hospitalisation.\n\n"
+    "Classification rules:\n"
+    "- Output '1' if the patient requires hospitalisation (e.g., severe symptoms, life-threatening conditions, need for inpatient monitoring, IV treatment, surgery, or inability to safely discharge).\n"
+    "- Output '0' if hospitalisation is NOT required (e.g., mild or stable condition, outpatient management, routine follow-up, or self-care).\n"
+    "- If the note is ambiguous, incomplete, or lacks clear evidence for hospitalisation, classify as '0'.\n"
+    "- Base your decision ONLY on the information explicitly stated in the note.\n\n"
+    "Output format:\n"
+    "- Output exactly ONE digit ('0' or '1') per note.\n"
+    "- Each output must be on a new line.\n"
+    "- Do NOT include explanations, labels, or extra text.\n"
+    "- Preserve the same order as the notes provided.\n\n"
+    "Each note starts with 'NOTE TEXT BEGIN:' and ends with 'NOTE TEXT END'.\n\n"
+    f"{combined_text}"
+)
+------------------------------------- prompt 3 --------------------------------------------
+prompt = (
+    "You are a clinical triage classification model.\n"
+    "Your task is to determine whether each clinical note indicates a need for hospitalisation check up.\n\n"
+    "Classification rules:\n"
+    "- Output '1' if the patient requires hospitalisation.\n"
+    "- Output '0' if hospitalisation is NOT required.\n"
+    "- If the note is ambiguous, incomplete, or lacks clear evidence for hospitalisation, classify as '0'.\n"
+    "- It is expected most of the notes should be labelled as hospitalisation is required for a check up.\n\n"
+    "Output format:\n"
+    "- Output exactly ONE digit ('0' or '1') per note.\n"
+    "- Each output must be on a new line.\n"
+    "- Do NOT include explanations, labels, or extra text.\n"
+    "- Preserve the same order as the notes provided.\n\n"
+    "Each note starts with 'NOTE TEXT BEGIN:' and ends with 'NOTE TEXT END'.\n\n"
+    f"{combined_text}"
+)
+------------------------------------- prompt 4 --------------------------------------------
+prompt = (
+    "You are a clinical triage classification model.\n"
+    "Your task is to determine whether each clinical note indicates a need for hospitalisation check up.\n\n"
+    "Classification rules:\n"
+    "- Output '1' if the patient requires hospitalisation.\n"
+    "- Output '0' if hospitalisation is NOT required.\n"
+    "- If the note is ambiguous, incomplete, or lacks clear evidence for hospitalisation, classify as '0'.\n"
+    "- It is expected most of the notes should be labelled as hospitalisation is required for a check up.\n\n"
+    "Output format:\n"
+    "- Output exactly ONE digit ('0' or '1').\n"
+    "- Do NOT include explanations, labels, or extra text.\n"
+    "The note starts with 'NOTE TEXT BEGIN:' and ends with 'NOTE TEXT END'.\n\n"
+    f"{combined_text}"
+)
+
+# Remove all "====" note seperators
+df["Note text"] = df["Note text"].str.replace("====", "", regex=False)
+------------------------------------- prompt 5 --------------------------------------------
+
+
+
