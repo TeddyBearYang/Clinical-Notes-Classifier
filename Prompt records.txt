@@ -58,6 +58,18 @@ prompt = (
 # Remove all "====" note seperators
 df["Note text"] = df["Note text"].str.replace("====", "", regex=False)
 ------------------------------------- prompt 5 --------------------------------------------
-
+prompt = (
+    "You are a clinical triage classification model.\n"
+    "Your task is to determine whether each clinical note indicates a need for hospitalisation check up.\n\n"
+    "Classification rules:\n"
+    "- Output '1' if the patient requires hospitalisation.\n"
+    "- Output '0' if hospitalisation is NOT required.\n"
+    "- If the note is ambiguous, incomplete, or lacks clear evidence for hospitalisation, classify as '0'.\n"
+    "Output format:\n"
+    "- Output exactly ONE digit ('0' or '1').\n"
+    "- Do NOT include explanations, labels, or extra text.\n"
+    "The note starts with 'NOTE TEXT BEGIN:' and ends with 'NOTE TEXT END'.\n\n"
+    f"{combined_text}"
+)
 
 

@@ -5,7 +5,7 @@ Created on Mon Mar  2 15:14:50 2026
 @author: User
 """
 import pandas as pd
-from sklearn.metrics import confusion_matrix,precision_score, recall_score, f1_score
+from sklearn.metrics import confusion_matrix,precision_score, recall_score, f1_score,cohen_kappa_score
 
 # Function to print confusion matrix and evaluation matrix
 def evaluation(df,y_true,y_pred):
@@ -18,7 +18,7 @@ def evaluation(df,y_true,y_pred):
     TN, FP, FN, TP = cm.ravel()
     
     # Print confusion matrix
-    print("Model:", y_pred)
+    print("\nModel:", y_pred)
     print("Confusion Matrix:")
     print(cm)
     print("\nMetrics:")
@@ -31,17 +31,26 @@ def evaluation(df,y_true,y_pred):
 # Load datasets
 predicted_df = pd.read_csv("classified_output.csv")
 
-# Convert dataframe
-predicted_df['inappropriate_yesno'] = predicted_df["inappropriate_yesno"].map({
-    "Yes": 0,
-    "No": 1
-})
+# Loop through all the domain experts' review
+for ground_truth in ['inappropriate_yesno(NM)','inappropriate_yesno(AB)']:
+    
+    # Print current loop detail
+    print("== EVALUATING AGAINST:",ground_truth,"==")
+    
+    # Convert dataframe
+    predicted_df[ground_truth] = predicted_df[ground_truth].map({
+        "Yes": 0,
+        "No": 1
+    })
+    
+    ##### Print all confusion matrices
+    evaluation(predicted_df,ground_truth,"google/gemma-3-1b")
+    evaluation(predicted_df,ground_truth,"google/gemma-3-12b")
+    evaluation(predicted_df,ground_truth,"google/gemma-3-27b")
+    evaluation(predicted_df,ground_truth,"openai/gpt-oss-20b")
 
-##### Print all confusion matrices
-evaluation(predicted_df,"inappropriate_yesno","google/gemma-3-1b")
-evaluation(predicted_df,"inappropriate_yesno","google/gemma-3-12b")
-evaluation(predicted_df,"inappropriate_yesno","google/gemma-3-27b")
-evaluation(predicted_df,"inappropriate_yesno","openai/gpt-oss-20b")
-
-
+# Compute and output Cohen's Kappa
+predicted_df = predicted_df.dropna(subset=['inappropriate_yesno(NM)','inappropriate_yesno(AB)']).copy()
+kappa = cohen_kappa_score(predicted_df['inappropriate_yesno(NM)'], predicted_df['inappropriate_yesno(AB)'])
+print("Cohen's Kappa:", kappa)
 

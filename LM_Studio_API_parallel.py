@@ -26,7 +26,6 @@ async def classify_batch(client,texts,model):
         "- Output '1' if the patient requires hospitalisation.\n"
         "- Output '0' if hospitalisation is NOT required.\n"
         "- If the note is ambiguous, incomplete, or lacks clear evidence for hospitalisation, classify as '0'.\n"
-        "- It is expected most of the notes should be labelled as hospitalisation is required for a check up.\n\n"
         "Output format:\n"
         "- Output exactly ONE digit ('0' or '1').\n"
         "- Do NOT include explanations, labels, or extra text.\n"
@@ -79,7 +78,7 @@ async def classify_all_batches(texts,model):
     return results
 
 # Load the dataset
-df = pd.read_csv("SCC_hospitalisations_NM Review.csv")
+df = pd.read_csv("HAC_hospitalisations_NM Review.csv")
 
 # LM Studio API endpoint
 url = "http://localhost:1234/v1/chat/completions"
